@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft启动器下载</title>
+    <link rel="icon" href="https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/favicon.ico">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, -apple-system, sans-serif}
+        body{background:linear-gradient(135deg,#e0ecff,#edf2f7);color:#222;line-height:1.7}
+
+        nav{
+            background:linear-gradient(90deg,#1e40af,#2563eb);
+            padding:18px 24px;
+            text-align:center;
+            box-shadow: 0 2px 8px #00000022;
+            border-radius:0 0 12px 12px;
+        }
+        nav a{
+            color:#fff;
+            text-decoration:none;
+            margin:0 16px;
+            font-size:17px;
+            transition: all 0.25s ease;
+        }
+        nav a:hover{
+            color:#bfdbfe;
+        }
+        nav a.active{
+            font-weight:bold;
+            border-bottom:2px solid #ffffff;
+            padding-bottom:4px;
+        }
+
+        header{
+            background:linear-gradient(90deg,#2563eb,#3b82f6);
+            color:white;
+            padding:50px 20px;
+            text-align:center;
+        }
+        header h1{
+            margin-bottom:14px;
+            font-size:34px;
+            background: linear-gradient(90deg,#000000,#60a5fa);
+            -webkit-background-clip:text;
+            color:transparent;
+        }
+        header p{
+            opacity:0.9;
+            font-size:18px;
+        }
+
+        main{
+            max-width:720px;
+            margin:45px auto;
+            padding:0 20px;
+        }
+        .section-title{
+            font-size:20px;
+            padding:8px 14px;
+            background:#eff6ff;
+            border-left:4px solid #2563eb;
+            border-radius:8px;
+            margin:32px 0 18px;
+        }
+        .card{
+            background:#ffffff;
+            padding:28px;
+            border-radius:20px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom:26px;
+            transition: transform 0.25s ease,box-shadow 0.25s ease;
+        }
+        .card:hover{
+            transform: translateY(-4px);
+            box-shadow:0 8px 24px rgba(0,0,0,0.1);
+        }
+        h2{
+            margin-bottom:10px;
+            color:#2563eb;
+        }
+        .tag{
+            display:inline-block;
+            padding:4px 11px;
+            border-radius:24px;
+            font-size:13px;
+            font-weight:500;
+            color:#fff;
+            margin-bottom:12px;
+        }
+        .tag-win{
+            background:#0078d4;
+        }
+        .tag-linux{
+            background:#f26522;
+        }
+        .tag-android{
+            background:#34a853;
+        }
+        .download-row{
+            display:flex;
+            gap:12px;
+            margin-top:12px;
+            flex-wrap:wrap;
+        }
+        .download-btn{
+            display:inline-block;
+            background:#2563eb;
+            color:#fff;
+            padding:10px 22px;
+            border-radius:8px;
+            text-decoration:none;
+            transition:transform 0.12s ease;
+            box-shadow:0 2px 6px #2563eb40;
+        }
+        .download-btn:hover{
+            background:#1d4ed8;
+        }
+        .download-btn:active{
+            transform:scale(0.96);
+        }
+        .download-btn-cat{
+            display:inline-block;
+            background:#4b5563;
+            color:#fff;
+            padding:10px 22px;
+            border-radius:8px;
+            text-decoration:none;
+            transition:transform 0.12s ease;
+            box-shadow:0 2px 6px #00000022;
+        }
+        .download-btn-cat:hover{
+            background:#374151;
+        }
+        .download-btn-cat:active{
+            transform:scale(0.96);
+        }
+        .download-btn-buy{
+            display:inline-block;
+            background:#10b981;
+            color:#fff;
+            padding:10px 22px;
+            border-radius:8px;
+            text-decoration:none;
+            transition:transform 0.12s ease;
+            box-shadow:0 2px 6px #10b98140;
+        }
+        .download-btn-buy:hover{
+            background:#059669;
+        }
+        .download-btn-buy:active{
+            transform:scale(0.96);
+        }
+        .download-btn-tutorial{
+            display:inline-block;
+            background:#fb923c;
+            color:#fff;
+            padding:10px 22px;
+            border-radius:8px;
+            text-decoration:none;
+            transition:transform 0.12s ease;
+            box-shadow:0 2px 6px #fb923c40;
+        }
+        .download-btn-tutorial:hover{
+            background:#ea580c;
+        }
+        .download-btn-tutorial:active{
+            transform:scale(0.96);
+        }
+        .tip{
+            margin-top:10px;
+            color:#e65100;
+            font-size:14px;
+        }
+        .warn{
+            background:#fff3e0;
+            border-left:5px solid #f57c00;
+            padding:16px 20px;
+            border-radius:10px;
+            font-size:14px;
+            color:#b71c1c;
+            margin-bottom:30px;
+            line-height:1.8;
+        }
+        .hint-card{
+            background:#f3f4f6;
+            padding:20px 24px;
+            border-radius:16px;
+            margin-bottom:26px;
+        }
+        .hint-card h3{
+            margin-bottom:8px;
+            color:#374151;
+            font-size:17px;
+        }
+        .hint-card p{
+            font-size:14px;
+            color:#4b5563;
+            line-height:1.8;
+        }
+        .code-wrap{
+            margin-top:8px;
+            display:flex;
+            gap:8px;
+            align-items:center;
+        }
+        .code-text{
+            background-color:#f0f4f8;
+            padding:8px 12px;
+            border-radius:6px;
+            font-family:monospace;
+            flex-grow:1;
+            overflow-x:auto;
+        }
+        .copy-btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:8px 12px;
+            border-radius:6px;
+            cursor:pointer;
+            white-space:nowrap;
+            transition:transform 0.12s ease;
+        }
+        .copy-btn:hover{
+            background:#1d4ed8;
+        }
+        .copy-btn:active{
+            transform:scale(0.95);
+        }
+        footer{
+            text-align:center;
+            padding:35px;
+            color:#707070;
+            font-size:14px;
+        }
+        footer a{
+            color:#2563eb;
+            text-decoration:none;
+        }
+        footer a:hover{
+            text-decoration:underline;
+        }
+        #backTop{
+            position:fixed;
+            bottom:24px;
+            right:24px;
+            width:46px;
+            height:46px;
+            border-radius:50%;
+            border:none;
+            background:#2563eb;
+            color:white;
+            font-size:20px;
+            cursor:pointer;
+            box-shadow:0 3px 10px #00000025;
+            opacity:0;
+            visibility:hidden;
+            transition: 0.25s;
+        }
+        #backTop.show{
+            opacity:1;
+            visibility:visible;
+        }
+        #backTop:active{
+            transform:scale(0.92);
+        }
+        .toast{
+            position:fixed;
+            top:20px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#22c55e;
+            color:white;
+            padding:9px 22px;
+            border-radius:8px;
+            opacity:0;
+            visibility:hidden;
+            transition:0.25s;
+            z-index:999;
+        }
+        .toast.show{
+            opacity:1;
+            visibility:visible;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">首页</a>
+    <a href="114514.html" class="active">Minecraft启动器下载</a>
+    <a href="windows.html">Windows镜像指引</a>
+</nav>
+<header>
+    <h1>Minecraft启动器下载</h1>
+    <p>公开下载站点</p>
+</header>
+<main>
+    <div class="warn">
+        ⚠️安全警告：本网站仅提供第三方启动器下载跳转，PCL2、HMCL、FCL不含游戏本体。国内优先选择123云盘，Catbox为备用源、有效期两周。下载完成后，请核对下方提供的MD5校验值，文件哈希不一致请勿运行。如需游玩Minecraft，请购买正版。
+    </div>
+
+    <div class="section-title">🪟 Windows启动器</div>
+    <div class="card">
+        <h2>PCL 2 64‑Bits</h2>
+        <span class="tag tag-win">Windows</span>
+        <p>Minecraft启动器下载</p>
+        <div class="download-row">
+            <a href="https://1829761771.share.123pan.cn/123pan/rDnejv-lnPMA" target="_blank" class="download-btn">123云盘(优先)</a>
+            <a href="https://catbox.to/S7G0tG7FwqzUgbg/file" target="_blank" class="download-btn-cat">Catbox备用</a>
+            <a href="https://www.minecraft.net/zh-hans" target="_blank" class="download-btn-buy">购买正版</a>
+            <a href="https://www.bilibili.com/video/BV1Du6FBmEbQ/" target="_blank" class="download-btn-tutorial">购买教程</a>
+        </div>
+        <p class="tip">⚠️Catbox链接2周之后过期，请及时保存</p>
+        <div class="code-wrap">
+            <span class="code-text" id="md5-pcl">bd50d97cac871c517760295988e96559</span>
+            <button class="copy-btn" onclick="copy('md5-pcl')">复制</button>
+        </div>
+    </div>
+    <div class="card">
+        <h2>HMCL 3.15.2 Windows</h2>
+        <span class="tag tag-win">Windows</span>
+        <p>Windows7+ 64位，需要预先安装 Java17</p>
+        <div class="download-row">
+            <a href="https://1829761771.share.123pan.cn/123pan/rDnejv-7nPMA" target="_blank" class="download-btn">123云盘(优先)</a>
+            <a href="https://catbox.to/pANtvD0St8aJ42V/file" target="_blank" class="download-btn-cat">Catbox备用</a>
+            <a href="https://www.minecraft.net/zh-hans" target="_blank" class="download-btn-buy">购买正版</a>
+            <a href="https://www.bilibili.com/video/BV1Du6FBmEbQ/" target="_blank" class="download-btn-tutorial">购买教程</a>
+        </div>
+        <p class="tip">⚠️Catbox链接2周之后过期，请及时保存</p>
+        <div class="code-wrap">
+            <span class="code-text" id="md5-hmcl-win">14d570c5de00e6c0beafda2e26adac72</span>
+            <button class="copy-btn" onclick="copy('md5-hmcl-win')">复制</button>
+        </div>
+    </div>
+
+    <div class="section-title">🐧 Linux启动器</div>
+    <div class="card">
+        <h2>HMCL Linux</h2>
+        <span class="tag tag-linux">Linux</span>
+        <p>Minecraft Linux平台启动器</p>
+        <div class="download-row">
+            <a href="https://1829761771.share.123pan.cn/123pan/rDnejv-eg61A" target="_blank" class="download-btn">123云盘(优先)</a>
+            <a href="https://catbox.to/oxNlNwNai9OqjcK/file" target="_blank" class="download-btn-cat">Catbox备用</a>
+            <a href="https://www.minecraft.net/zh-hans" target="_blank" class="download-btn-buy">购买正版</a>
+            <a href="https://www.bilibili.com/video/BV1Du6FBmEbQ/" target="_blank" class="download-btn-tutorial">购买教程</a>
+        </div>
+        <p>运行命令：<span class="code-text">./name.sh</span></p>
+        <p class="tip">⚠️Catbox链接2周之后过期，请及时保存</p>
+        <div class="code-wrap">
+            <span class="code-text" id="md5-hmcl-linux">ecac8dd97b2f102bc40bc5d8ec1f2b91</span>
+            <button class="copy-btn" onclick="copy('md5-hmcl-linux')">复制</button>
+        </div>
+    </div>
+
+    <div class="section-title">📱 Android启动器</div>
+    <div class="hint-card">
+        <h3>💡安卓版本怎么选</h3>
+        <p>✅ arm64‑v8a：2018年后绝大多数新款安卓手机，体积更小，优先下载<br>✅ all全架构包：老旧设备、安卓模拟器，兼容性最强，文件体积更大<br>⚠️大于100MB文件123云盘下载需要登录账号</p>
+    </div>
+    <div class="card">
+        <h2>FCL‑FoldCraftLauncher 1.3.2.7‑all</h2>
+        <span class="tag tag-android">Android 全架构</span>
+        <p>安卓Minecraft Java版启动器，全架构通用安装包，兼容性最好，体积较大</p>
+        <div class="download-row">
+            <a href="https://1829761771.share.123pan.cn/123pan/rDnejv-MjC1A" target="_blank" class="download-btn">123云盘(优先)</a>
+            <a href="https://catbox.to/NYrNLOIrZOwXSu5/file" target="_blank" class="download-btn-cat">Catbox备用</a>
+            <a href="https://www.minecraft.net/zh-hans" target="_blank" class="download-btn-buy">购买正版</a>
+            <a href="https://www.bilibili.com/video/BV1Du6FBmEbQ/" target="_blank" class="download-btn-tutorial">购买教程</a>
+        </div>
+        <p class="tip">⚠️Catbox链接2周之后过期，请及时保存</p>
+        <div class="code-wrap">
+            <span class="code-text" id="md5-fcl-all">68191f422de9cad1009b0eca848ed4a0</span>
+            <button class="copy-btn" onclick="copy('md5-fcl-all')">复制</button>
+        </div>
+    </div>
+    <div class="card">
+        <h2>FCL‑FoldCraftLauncher 1.3.2.7‑arm64‑v8a</h2>
+        <span class="tag tag-android">Android arm64‑v8a</span>
+        <p>2018年后主流64位安卓手机优先选择，体积更小、性能更好</p>
+        <div class="download-row">
+            <a href="https://1829761771.share.123pan.cn/123pan/rDnejv-noG1A" target="_blank" class="download-btn">123云盘(优先)</a>
+            <a href="https://catbox.to/qlGJm5zkOiLzks3/file" target="_blank" class="download-btn-cat">Catbox备用</a>
+            <a href="https://www.minecraft.net/zh-hans" target="_blank" class="download-btn-buy">购买正版</a>
+            <a href="https://www.bilibili.com/video/BV1Du6FBmEbQ/" target="_blank" class="download-btn-tutorial">购买教程</a>
+        </div>
+        <p class="tip">⚠️Catbox链接2周之后过期，请及时保存</p>
+        <div class="code-wrap">
+            <span class="code-text" id="md5-fcl-arm64">c9ff61c4a23b7329816ccea8bc013a0</span>
+            <button class="copy-btn" onclick="copy('md5-fcl-arm64')">复制</button>
+        </div>
+    </div>
+</main>
+<footer>
+    © 2026 我的个人网站
+    <br>
+    <a href="https://space.bilibili.com/634632482" target="_blank">访问作者B站主页</a>
+</footer>
+<button id="backTop">↑</button>
+<div class="toast" id="toast">MD5复制成功</div>
+<script>
+function copy(id){
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(showToast).catch(fallbackCopy);
+    }else{
+        fallbackCopy();
+    }
+    function fallbackCopy(){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast();
+    }
+}
+function showToast(){
+    const t = document.getElementById("toast");
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"),1500);
+}
+const btnTop = document.getElementById("backTop");
+window.addEventListener("scroll",()=>{
+    if(window.scrollY>220){
+        btnTop.classList.add("show");
+    }else{
+        btnTop.classList.remove("show");
+    }
+})
+btnTop.onclick = ()=>{
+    window.scrollTo({top:0,behavior:"smooth"})
+}
+</script>
+</body>
+</html>
+
